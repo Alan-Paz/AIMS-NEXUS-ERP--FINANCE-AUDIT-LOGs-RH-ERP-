@@ -1,0 +1,38 @@
+{
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "orientation": "any",
+  "id": "./",
+  "name": "AuditIA 42001 — Auditoria Financeira com Inteligência Artificial",
+  "short_name": "AuditIA",
+  "description": "Plataforma de auditoria financeira e fiscal com IA baseada na ISO/IEC 42001. Importe, edite e analise planilhas automaticamente.",
+  "start_url": "./",
+  "scope": "./",
+  "background_color": "#0f766e",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "generator": "builder.puter.com"
+}

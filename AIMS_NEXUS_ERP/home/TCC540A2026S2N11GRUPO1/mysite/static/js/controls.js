@@ -1,0 +1,368 @@
+// Framework de auditoria: ISO/IEC 42001:2023 (Sistema de Gestão de IA)
+// aplicado ao contexto de Prevenção à Lavagem de Dinheiro (PLD/AML)
+
+export const STATUS = {
+  conforme: { label: "Conforme", color: "#059669", bg: "#ecfdf5", score: 1 },
+  parcial: { label: "Parcial", color: "#d97706", bg: "#fffbeb", score: 0.5 },
+  nao_conforme: { label: "Não conforme", color: "#dc2626", bg: "#fef2f2", score: 0 },
+  na: { label: "Não aplicável", color: "#64748b", bg: "#f1f5f9", score: null },
+  pendente: { label: "Pendente", color: "#94a3b8", bg: "#f8fafc", score: null },
+};
+
+export const RISK = {
+  critico: { label: "Crítico", color: "#dc2626" },
+  alto: { label: "Alto", color: "#ea580c" },
+  medio: { label: "Médio", color: "#d97706" },
+  baixo: { label: "Baixo", color: "#059669" },
+};
+
+export const CATEGORIES = [
+  {
+    id: "contexto",
+    clause: "Cláusula 4",
+    title: "Contexto da organização",
+    icon: "compass",
+    desc: "Entendimento do papel da IA na PLD e das partes interessadas.",
+    controls: [
+      {
+        id: "4.1",
+        title: "Compreensão do contexto de PLD",
+        risk: "alto",
+        req: "A instituição identifica questões internas e externas relevantes ao uso de IA na prevenção à lavagem de dinheiro (regulação BACEN/COAF, tipologias de risco, apetite ao risco).",
+        evidencia: "Análise de contexto, matriz PESTEL, mapa de obrigações regulatórias (Circular 3.978, Lei 9.613/98).",
+      },
+      {
+        id: "4.2",
+        title: "Necessidades das partes interessadas",
+        risk: "medio",
+        req: "Requisitos de reguladores, compliance, clientes e auditoria sobre os sistemas de IA de monitoramento estão documentados.",
+        evidencia: "Registro de requisitos de partes interessadas; expectativas do COAF e do regulador.",
+      },
+      {
+        id: "4.3",
+        title: "Escopo do sistema de gestão de IA",
+        risk: "alto",
+        req: "O escopo do SGIA abrange os modelos de IA usados em screening, monitoramento transacional e KYC.",
+        evidencia: "Documento de escopo do SGIA; inventário de casos de uso de IA em PLD.",
+      },
+      {
+        id: "4.4",
+        title: "Sistema de gestão de IA (SGIA)",
+        risk: "medio",
+        req: "O SGIA foi estabelecido, implementado e é mantido conforme a ISO/IEC 42001.",
+        evidencia: "Manual do SGIA, políticas e procedimentos aprovados.",
+      },
+    ],
+  },
+  {
+    id: "lideranca",
+    clause: "Cláusula 5",
+    title: "Liderança",
+    icon: "crown",
+    desc: "Comprometimento da alta direção e política de IA responsável.",
+    controls: [
+      {
+        id: "5.1",
+        title: "Liderança e comprometimento",
+        risk: "alto",
+        req: "A alta direção demonstra comprometimento com o uso responsável de IA na PLD e provê recursos.",
+        evidencia: "Atas do comitê de PLD; aprovação orçamentária; comunicação executiva.",
+      },
+      {
+        id: "5.2",
+        title: "Política de IA",
+        risk: "critico",
+        req: "Existe política de IA que trata de uso ético, transparência, não discriminação e alinhamento à PLD.",
+        evidencia: "Política de IA responsável aprovada e publicada.",
+      },
+      {
+        id: "5.3",
+        title: "Papéis, responsabilidades e autoridades",
+        risk: "medio",
+        req: "Responsabilidades sobre modelos de IA de PLD (donos de modelo, validação, diretor de PLD) estão definidas.",
+        evidencia: "Matriz RACI; designação formal do responsável pela IA e do diretor de PLD.",
+      },
+    ],
+  },
+  {
+    id: "planejamento",
+    clause: "Cláusula 6",
+    title: "Planejamento",
+    icon: "target",
+    desc: "Gestão de riscos e objetivos do sistema de IA.",
+    controls: [
+      {
+        id: "6.1.2",
+        title: "Avaliação de riscos de IA",
+        risk: "critico",
+        req: "Riscos dos modelos de IA (falsos negativos em lavagem, viés, deriva de modelo) são avaliados sistematicamente.",
+        evidencia: "Relatório de avaliação de riscos de IA; matriz de risco por modelo.",
+      },
+      {
+        id: "6.1.3",
+        title: "Tratamento de riscos de IA",
+        risk: "alto",
+        req: "Controles para mitigar riscos identificados foram selecionados e implementados (Declaração de Aplicabilidade).",
+        evidencia: "Declaração de Aplicabilidade (SoA); plano de tratamento de riscos.",
+      },
+      {
+        id: "6.1.4",
+        title: "Avaliação de impacto do sistema de IA (AIIA)",
+        risk: "critico",
+        req: "Impactos aos indivíduos e à sociedade (ex.: bloqueio indevido de contas, exclusão financeira) são avaliados.",
+        evidencia: "AI System Impact Assessment (AIIA) documentada.",
+      },
+      {
+        id: "6.2",
+        title: "Objetivos de IA",
+        risk: "medio",
+        req: "Objetivos mensuráveis de desempenho e conformidade da IA de PLD foram definidos (ex.: taxa de detecção, precisão de alertas).",
+        evidencia: "Painel de KPIs/OKRs de modelos; metas aprovadas.",
+      },
+    ],
+  },
+  {
+    id: "apoio",
+    clause: "Cláusula 7",
+    title: "Apoio",
+    icon: "life-buoy",
+    desc: "Recursos, competência, conscientização e documentação.",
+    controls: [
+      {
+        id: "7.2",
+        title: "Competência da equipe",
+        risk: "alto",
+        req: "Analistas de PLD e cientistas de dados possuem competência em IA e em tipologias de lavagem de dinheiro.",
+        evidencia: "Matriz de competências; registros de treinamento e certificações (CAMS, etc.).",
+      },
+      {
+        id: "7.3",
+        title: "Conscientização",
+        risk: "medio",
+        req: "Colaboradores estão conscientes da política de IA e das limitações dos modelos de detecção.",
+        evidencia: "Campanhas de conscientização; registros de participação.",
+      },
+      {
+        id: "7.4",
+        title: "Comunicação",
+        risk: "baixo",
+        req: "Comunicação interna e externa sobre incidentes e desempenho da IA está definida.",
+        evidencia: "Plano de comunicação; canal para reporte de anomalias de modelo.",
+      },
+      {
+        id: "7.5",
+        title: "Informação documentada",
+        risk: "medio",
+        req: "Documentação de modelos, datasets e decisões é controlada, versionada e retida conforme exigências regulatórias.",
+        evidencia: "Repositório versionado; política de retenção; model cards.",
+      },
+    ],
+  },
+  {
+    id: "operacao",
+    clause: "Cláusula 8",
+    title: "Operação",
+    icon: "settings",
+    desc: "Operação, gestão de risco e impacto ao longo do ciclo de vida.",
+    controls: [
+      {
+        id: "8.1",
+        title: "Planejamento e controle operacional",
+        risk: "alto",
+        req: "Processos de operação dos modelos de PLD são planejados e controlados (geração de alertas, filas de análise).",
+        evidencia: "Procedimentos operacionais; SLAs de triagem de alertas.",
+      },
+      {
+        id: "8.2",
+        title: "Avaliação de riscos de IA (operacional)",
+        risk: "alto",
+        req: "A avaliação de riscos é executada em intervalos planejados e quando há mudanças significativas.",
+        evidencia: "Reavaliações periódicas; gatilhos de reavaliação registrados.",
+      },
+      {
+        id: "8.3",
+        title: "Tratamento de riscos de IA (operacional)",
+        risk: "alto",
+        req: "O plano de tratamento de riscos é executado e a eficácia dos controles é verificada.",
+        evidencia: "Evidências de execução dos controles; testes de eficácia.",
+      },
+      {
+        id: "8.4",
+        title: "Avaliação de impacto contínua",
+        risk: "critico",
+        req: "Impactos são reavaliados quando modelos, dados ou tipologias de lavagem mudam.",
+        evidencia: "AIIA atualizada; registro de mudanças de tipologia.",
+      },
+    ],
+  },
+  {
+    id: "desempenho",
+    clause: "Cláusula 9",
+    title: "Avaliação de desempenho",
+    icon: "activity",
+    desc: "Monitoramento, auditoria interna e análise crítica.",
+    controls: [
+      {
+        id: "9.1",
+        title: "Monitoramento e medição",
+        risk: "critico",
+        req: "Desempenho dos modelos (precisão, recall, taxa de falsos positivos, deriva) é monitorado continuamente.",
+        evidencia: "Dashboards de monitoramento; alertas de degradação de modelo.",
+      },
+      {
+        id: "9.2",
+        title: "Auditoria interna",
+        risk: "alto",
+        req: "Auditorias internas do SGIA de PLD são realizadas em intervalos planejados.",
+        evidencia: "Programa de auditoria; relatórios e planos de ação.",
+      },
+      {
+        id: "9.3",
+        title: "Análise crítica pela direção",
+        risk: "medio",
+        req: "A alta direção analisa criticamente o desempenho do SGIA e da IA de PLD.",
+        evidencia: "Atas de análise crítica; decisões e encaminhamentos.",
+      },
+    ],
+  },
+  {
+    id: "melhoria",
+    clause: "Cláusula 10",
+    title: "Melhoria",
+    icon: "trending-up",
+    desc: "Não conformidades, ações corretivas e melhoria contínua.",
+    controls: [
+      {
+        id: "10.1",
+        title: "Melhoria contínua",
+        risk: "medio",
+        req: "O SGIA de PLD é continuamente melhorado em adequação, eficácia e conformidade.",
+        evidencia: "Registro de iniciativas de melhoria; retreinamento de modelos.",
+      },
+      {
+        id: "10.2",
+        title: "Não conformidade e ação corretiva",
+        risk: "alto",
+        req: "Não conformidades (ex.: falha em reportar operação suspeita) são tratadas com ações corretivas.",
+        evidencia: "Registro de não conformidades; RCA; ações corretivas eficazes.",
+      },
+    ],
+  },
+  {
+    id: "anexo_dados",
+    clause: "Anexo A.7",
+    title: "Dados para IA",
+    icon: "database",
+    desc: "Qualidade, procedência e governança dos dados de PLD.",
+    controls: [
+      {
+        id: "A.7.2",
+        title: "Dados para desenvolvimento",
+        risk: "critico",
+        req: "Dados de treinamento (transações, cadastros, listas restritivas) têm qualidade e representatividade adequadas.",
+        evidencia: "Ficha de dataset; verificação de qualidade e balanceamento.",
+      },
+      {
+        id: "A.7.4",
+        title: "Procedência dos dados",
+        risk: "alto",
+        req: "A origem e a linhagem dos dados usados nos modelos de PLD são documentadas.",
+        evidencia: "Data lineage; catálogo de dados.",
+      },
+      {
+        id: "A.7.5",
+        title: "Preparação de dados",
+        risk: "medio",
+        req: "Métodos de preparação de dados (anonimização, tratamento de dados sensíveis) estão documentados e são adequados à LGPD.",
+        evidencia: "Pipeline de preparação; DPIA/RIPD quando aplicável.",
+      },
+    ],
+  },
+  {
+    id: "anexo_ciclo",
+    clause: "Anexo A.6",
+    title: "Ciclo de vida do sistema de IA",
+    icon: "repeat",
+    desc: "Desenvolvimento, verificação e implantação responsável.",
+    controls: [
+      {
+        id: "A.6.1.2",
+        title: "Objetivos de desenvolvimento responsável",
+        risk: "alto",
+        req: "Objetivos de IA responsável (justiça, robustez, explicabilidade) guiam o desenvolvimento dos modelos de PLD.",
+        evidencia: "Requisitos de design; critérios de aceitação de justiça e explicabilidade.",
+      },
+      {
+        id: "A.6.2.2",
+        title: "Documentação de requisitos e especificação",
+        risk: "medio",
+        req: "Requisitos dos modelos de detecção estão especificados e rastreáveis.",
+        evidencia: "Especificação técnica; matriz de rastreabilidade.",
+      },
+      {
+        id: "A.6.2.4",
+        title: "Verificação e validação de modelos",
+        risk: "critico",
+        req: "Modelos são verificados e validados de forma independente antes da produção (backtesting, above/below-the-line).",
+        evidencia: "Relatório de validação independente; backtesting de cenários.",
+      },
+      {
+        id: "A.6.2.6",
+        title: "Operação e monitoramento pós-implantação",
+        risk: "alto",
+        req: "Há processo formal de operação, monitoramento e revalidação periódica dos modelos em produção.",
+        evidencia: "Política de revalidação; logs de monitoramento.",
+      },
+    ],
+  },
+  {
+    id: "anexo_terceiros",
+    clause: "Anexo A.10",
+    title: "Terceiros e fornecedores",
+    icon: "handshake",
+    desc: "Gestão de fornecedores e serviços de IA de terceiros.",
+    controls: [
+      {
+        id: "A.10.2",
+        title: "Alocação de responsabilidades",
+        risk: "alto",
+        req: "Responsabilidades entre a instituição e fornecedores de IA/dados de PLD estão claramente alocadas.",
+        evidencia: "Contratos; matriz de responsabilidades compartilhadas.",
+      },
+      {
+        id: "A.10.3",
+        title: "Fornecedores de IA",
+        risk: "medio",
+        req: "Fornecedores de serviços de IA (screening, listas PEP/sanções) atendem aos requisitos do SGIA.",
+        evidencia: "Due diligence de fornecedores; cláusulas de auditoria.",
+      },
+    ],
+  },
+  {
+    id: "anexo_impacto",
+    clause: "Anexo A.5",
+    title: "Impacto sobre indivíduos",
+    icon: "users",
+    desc: "Avaliação de impacto e direitos das pessoas afetadas.",
+    controls: [
+      {
+        id: "A.5.2",
+        title: "Processo de avaliação de impacto",
+        risk: "critico",
+        req: "Há processo para avaliar impactos potenciais das decisões automatizadas de PLD sobre clientes.",
+        evidencia: "Procedimento de AIIA; critérios de severidade.",
+      },
+      {
+        id: "A.5.4",
+        title: "Avaliação de impactos a indivíduos e sociedade",
+        risk: "alto",
+        req: "Riscos de exclusão financeira, discriminação e falso positivo são avaliados e mitigados; há revisão humana.",
+        evidencia: "Registro de human-in-the-loop; canal de contestação do cliente.",
+      },
+    ],
+  },
+];
+
+export function totalControls() {
+  return CATEGORIES.reduce((n, c) => n + c.controls.length, 0);
+}

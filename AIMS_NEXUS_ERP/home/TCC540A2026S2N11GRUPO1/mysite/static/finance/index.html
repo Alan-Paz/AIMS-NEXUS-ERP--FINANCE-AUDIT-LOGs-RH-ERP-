@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AuditIA 42001 — Auditoria Financeira com Inteligência Artificial</title>
+<meta name="description" content="Plataforma de auditoria financeira e fiscal com IA baseada na ISO/IEC 42001. Importe, edite e analise planilhas automaticamente.">
+<meta name="theme-color" content="#0f766e">
+<script>
+window.onerror=function(msg,src,line,col,err){window.parent.postMessage({type:'app-error',message:msg,source:src,lineno:line,colno:col,stack:err&&err.stack||''},'*');};
+window.onunhandledrejection=function(e){window.parent.postMessage({type:'app-error',message:'Unhandled promise rejection: '+(e.reason&&e.reason.message||e.reason||'unknown'),stack:e.reason&&e.reason.stack||''},'*');};
+window.addEventListener('error',function(e){var t=e&&e.target;if(t&&t!==window&&t.tagName==='SCRIPT'){var u=t.src||'';window.parent.postMessage({type:'app-error',message:'Failed to load script'+(u?': '+u:' (inline module)'),source:u},'*');}},true);
+(function(){var _f=window.fetch;window.fetch=function(){var a=arguments,u=typeof a[0]==='string'?a[0]:(a[0]&&a[0].url)||'';var p=_f.apply(this,a);p.then(function(r){if(r.status===500){r.clone().text().then(function(b){window.parent.postMessage({type:'fetch-error',url:u,status:500,body:b},'*');}).catch(function(){window.parent.postMessage({type:'fetch-error',url:u,status:500,body:''},'*');});}}).catch(function(e){window.parent.postMessage({type:'fetch-error',url:u,status:0,body:e.message||'fetch failed'},'*');});return p;};})();
+</script>
+<script src="https://builder.puter.com/runtime.js" defer></script>
+<script src="https://js.puter.com/v2/"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: { 50:'#f0fdfa',100:'#ccfbf1',200:'#99f6e4',500:'#14b8a6',600:'#0d9488',700:'#0f766e',800:'#115e59',900:'#134e4a' },
+        ink: { 900:'#0b1220',800:'#111827',700:'#1f2937',600:'#374151' }
+      },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html,body{font-family:'Inter',sans-serif;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px;}
+  ::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
+  .sheet-input{outline:none;}
+  .sheet-input:focus{background:#f0fdfa;box-shadow:inset 0 0 0 2px #14b8a6;}
+  [contenteditable]:focus{outline:none;}
+  .fade-in{animation:fade .3s ease both;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .spin{animation:sp 1s linear infinite;}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .prose-ai h3{font-weight:700;margin:1em 0 .4em;font-size:1rem;color:#0f172a;}
+  .prose-ai h2{font-weight:800;margin:1.1em 0 .5em;font-size:1.1rem;color:#0f172a;}
+  .prose-ai ul{margin:.4em 0 .8em 1.1em;list-style:disc;}
+  .prose-ai li{margin:.25em 0;}
+  .prose-ai p{margin:.5em 0;line-height:1.6;}
+  .prose-ai strong{font-weight:700;color:#0f172a;}
+  .prose-ai table{width:100%;border-collapse:collapse;margin:.6em 0;font-size:.8rem;}
+  .prose-ai th,.prose-ai td{border:1px solid #e2e8f0;padding:.4em .6em;text-align:left;}
+  .prose-ai th{background:#f0fdfa;font-weight:600;}
+</style>
+    <!-- puter-pwa: generated, do not edit -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="AuditIA">
+    <!-- /puter-pwa -->
+</head>
+<body class="bg-slate-100 text-ink-800">
+<div id="app"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

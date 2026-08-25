@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDataRocks com Google Charts</title>
+
+    <!-- CSS e Scripts CDN -->
+    <link href="https://cdn.webdatarocks.com/latest/webdatarocks.min.css" rel="stylesheet"/>
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.toolbar.min.js"></script>
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.js"></script>
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.googlecharts.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+    <!-- Layout com Tabela -->
+    <table>
+        <tr>
+            <td style="width: 800px; vertical-align: top;">
+                <div id="wdr-component"></div>
+            </td>
+            <td style="vertical-align: top;">
+                <div id="googlechart-container" style="width:750px;height:550px;"></div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- JavaScript Unificado -->
+    <script>
+        var pivotTableReportComplete = false;
+        var googleChartsLoaded = false;
+
+        var pivot = new WebDataRocks({
+            container: "#wdr-component",
+            toolbar: true,
+            report: {
+                dataSource: {
+                    filename: "https://cdn.webdatarocks.com/data/data.csv"
+                },
+                formats: [{
+                    maxDecimalPlaces: 2
+                }],
+                slice: {
+                    rows: [{
+                        uniqueName: "Country"
+                    }],
+                    columns: [{
+                        uniqueName: "Category"
+                    }],
+                    measures: [
+                        {
+                            uniqueName: "Price",
+                            aggregation: "sum"
+                        },
+                        {
+                            uniqueName: "Quantity",
+                            aggregation: "sum"
+                        }
+                    ]
+                }
+            },
+            reportcomplete: function() {
+                pivot.off("reportcomplete");
+                pivotTableReportComplete = true;
+                createGoogleChart();
+            }
+        });
+
+        google.charts.load('current', {
+            'packages': ['sankey']
+        });
+        google.charts.setOnLoadCallback(onGoogleChartsLoaded);
+
+        function onGoogleChartsLoaded() {
+            googleChartsLoaded = true;
+            if (pivotTableReportComplete) {
+                createGoogleChart();
+            }
+        }
+
+        function createGoogleChart() {
+            if (googleChartsLoaded) {
+                pivot.googlecharts.getData(
+                    { type: "sankey" },
+                    drawChart,
+                    drawChart
+                );
+            }
+        }
+
+        function drawChart(_data) {
+            var data = google.visualization.arrayToDataTable(_data.data);
+
+            var options = {
+                title: "Average price of products in Category",
+                legend: {
+                    position: 'top'
+                },
+                is3D: true,
+                colors: ['#009999', '#990099', '#999900']
+            };
+
+            var chart = new google.visualization.Sankey(document.getElementById('googlechart-container'));
+            chart.draw(data, options);
+        }
+    </script>
+
+</body>
+</html>

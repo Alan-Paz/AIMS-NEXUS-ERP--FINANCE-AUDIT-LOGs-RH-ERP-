@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organograma e Produtividade - Grupo 1</title>
+
+    <!-- Favicon de Reunião/Call (Video Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e74c3c'><path d='M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z'/></svg>">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 120px 20px 30px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Banner de Alerta Fixo Topo */
+        .alert-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #d35400, #e67e22);
+            color: #ffffff;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            z-index: 1001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .alert-banner span.badge-date {
+            background-color: #ffffff;
+            color: #d35400;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .alert-banner button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 15px;
+            font-size: 0.75rem;
+        }
+
+        /* Menu no Topo (Header / Nav) */
+        .top-nav {
+            position: fixed;
+            top: 34px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Botão 3D "Acessar Laboratório IA/IEC 42001" */
+        .btn-lab-3d {
+            background: linear-gradient(135deg, #8e44ad, #6c5ce7);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 #5b3286, 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-lab-3d:hover {
+            background: linear-gradient(135deg, #a29bfe, #8e44ad);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #5b3286, 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-lab-3d:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #5b3286, 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Botão 3D "Apresentar ao Vivo" */
+        .btn-live-3d {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 #962d22, 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-live-3d:hover {
+            background: linear-gradient(135deg, #ff5252, #d63031);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #962d22, 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-live-3d:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #962d22, 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Botão 3D "Documento Drive doc.x" */
+        .btn-doc-3d {
+            background: linear-gradient(135deg, #2980b9, #1f618d);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 0 #154360, 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-doc-3d:hover {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #154360, 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-doc-3d:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #154360, 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-colab {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .btn-colab:hover {
+            background: #e67e22;
+        }
+
+        .live-dot {
+            width: 9px;
+            height: 9px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #2ecc71;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        /* --- ESTILOS DO MODAL / IFRAME MODO BOLHA (FULLSCREEN) --- */
+        .bubble-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 4000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bubble-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .bubble-modal {
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            border-radius: 50%;
+            transform: scale(0.01);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), border-radius 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(142, 68, 173, 0.5);
+        }
+
+        .bubble-overlay.active .bubble-modal {
+            transform: scale(1);
+            border-radius: 0%;
+            opacity: 1;
+        }
+
+        .bubble-header {
+            background: linear-gradient(90deg, #2c3e50, #8e44ad);
+            color: #ffffff;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .bubble-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bubble-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bubble-close-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .bubble-close-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .bubble-body {
+            flex: 1;
+            width: 100%;
+            height: calc(100% - 56px);
+            background: #000000;
+        }
+
+        .bubble-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Painel Iframe Deslizante (Gaveta Lateral da Direita para Esquerda) */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drawer-panel {
+            position: fixed;
+            top: 0;
+            right: -800px;
+            width: 800px;
+            max-width: 90vw;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+            z-index: 3001;
+            transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drawer-panel.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            background-color: #2c3e50;
+            color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #34495e;
+        }
+
+        .drawer-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .drawer-close-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .drawer-close-btn:hover {
+            background: #c0392b;
+        }
+
+        .drawer-body {
+            flex: 1;
+            width: 100%;
+            height: calc(100% - 60px);
+            position: relative;
+            background: #f8f9fa;
+        }
+
+        .drawer-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Estilos Gerais da Página */
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        /* Seção do Cronograma de Reuniões */
+        .schedule-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1100px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .schedule-container h2 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+
+        .meetings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .meeting-card {
+            background: #f8f9fa;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .meeting-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .meeting-card.highlight {
+            background: #fef9e7;
+            border-color: #f39c12;
+        }
+
+        .meeting-date {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .meeting-card.highlight .meeting-date {
+            background: #d35400;
+        }
+
+        .meeting-title {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .meeting-info {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .meeting-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .meeting-btn:hover {
+            background: #219150;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1100px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+        .dashboard h2 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .metric-card .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .metric-card .label {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .members-progress-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .member-progress-item {
+            font-size: 0.85rem;
+            background: #fdfdfd;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #edf2f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Seção de Vídeo Incorporado no Dashboard */
+        .dashboard-video-section {
+            margin-top: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 18px;
+            border: 1px solid #e9ecef;
+        }
+
+        .dashboard-video-section h3 {
+            font-size: 1.05rem;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Organograma Styles */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #bdc3c7;
+            text-align: center;
+            min-width: 230px;
+            max-width: 260px;
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .card .role {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .card .name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        .card .group {
+            font-size: 0.7rem;
+            color: #95a5a6;
+            margin-top: 6px;
+        }
+
+        .card .badge {
+            margin-top: 8px;
+            display: inline-block;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        /* Níveis */
+        .card.gestor { border-left-color: #e74c3c; background: #fdf2e9; }
+        .card.gestor .role { color: #e74c3c; }
+
+        .card.lider { border-left-color: #2980b9; background: #ebf5fb; }
+        .card.lider .role { color: #2980b9; }
+
+        .card.membro { border-left-color: #2ecc71; }
+        .card.membro .role { color: #27ae60; }
+
+        /* Conectores */
+        .line-v { width: 2px; background-color: #bdc3c7; height: 30px; }
+        .children-container { display: flex; justify-content: center; position: relative; padding-top: 20px; }
+        .children-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background-color: #bdc3c7; }
+        .children-container > .node:first-child::before { content: ''; position: absolute; top: -20px; left: 0; width: 50%; height: 2px; background-color: #f4f7f6; }
+        .children-container > .node:last-child::before { content: ''; position: absolute; top: -20px; right: 0; width: 50%; height: 2px; background-color: #f4f7f6; }
+
+        .grid-membros { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 1000px; }
+        .grid-membros .node::before { content: ''; position: absolute; top: -20px; height: 20px; width: 2px; background-color: #bdc3c7; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal h3 { margin-bottom: 15px; color: #2c3e50; }
+        .modal input[type="password"] {
+            width: 100%; padding: 10px; margin: 10px 0 15px 0;
+            border: 1px solid #ccc; border-radius: 5px;
+        }
+
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px; }
+        .btn { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+
+        .task-list { list-style: none; margin: 15px 0; text-align: left; }
+        .task-item { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
+        .task-item.done span { text-decoration: line-through; color: #888; }
+    </style>
+</head>
+<body>
+
+    <!-- Banner de Alerta Fixo de Reunião Próxima -->
+    <div class="alert-banner" id="alertBanner">
+        🔔 <strong>LEMBRETE DE REUNIÃO:</strong> Próxima Reunião do Grupo agendada para <span class="badge-date">12/08 às 20:00</span>
+        <button onclick="openLiveWindow()">Acessar Sala</button>
+        <button onclick="closeBanner()" style="background:transparent; margin-left:5px;">✕</button>
+    </div>
+
+    <!-- Menu no Topo -->
+    <nav class="top-nav">
+        <div class="nav-brand">
+            📊 Portal Grupo 1
+        </div>
+        <div class="nav-menu">
+            <!-- Botão 3D para Acessar Laboratório IA/IEC 42001 (Modo Bolha Fullscreen) -->
+            <button class="btn-lab-3d" onclick="toggleLabBubble()">
+                🧪 Laboratório IA / IEC 42001
+            </button>
+
+            <!-- Botão 3D para Abrir Iframe do Drive (Gaveta Lateral) -->
+            <button class="btn-doc-3d" onclick="toggleDriveDrawer()">
+                📄 Documento Drive (doc.x)
+            </button>
+
+            <!-- Botão 3D para Abrir Janela Extra (50% da Tela) -->
+            <button class="btn-live-3d" onclick="openLiveWindow()">
+                <span class="live-dot"></span>
+                Apresentar ao Vivo
+            </button>
+
+            <button class="btn-colab" onclick="abrirJanelaMetade()">Abrir Google Colab</button>
+        </div>
+    </nav>
+
+    <h1>Organograma & Central de Produtividade</h1>
+    <div class="subtitle" id="grupo-title">EC - TCC540 - A2026S2N11 - Grupo 1</div>
+
+    <!-- Seção de Cronograma e Agenda de Reuniões -->
+    <div class="schedule-container">
+        <h2>📅 Cronograma de Reuniões do TCC</h2>
+        <div class="meetings-grid">
+            <div class="meeting-card highlight">
+                <span class="meeting-date">12/08 - 20:00 (Próxima)</span>
+                <div class="meeting-title">Reunião Geral de Alinhamento e Entregas</div>
+                <div class="meeting-info">Pauta: Revisão do Cronograma, Divisão do Modelo de BD e Documentação.</div>
+                <a href="#" class="meeting-btn" onclick="openLiveWindow(); return false;">Entrar na Reunião</a>
+            </div>
+
+            <div class="meeting-card">
+                <span class="meeting-date">19/08 - 20:00</span>
+                <div class="meeting-title">Acompanhamento de Backend & Banco</div>
+                <div class="meeting-info">Pauta: Testes da API, Scripts SQL e Prototipação UI/UX.</div>
+                <a href="#" class="meeting-btn" onclick="openLiveWindow(); return false;">Link da Sala</a>
+            </div>
+
+            <div class="meeting-card">
+                <span class="meeting-date">26/08 - 20:00</span>
+                <div class="meeting-title">Revisão Geral e Formatação ABNT</div>
+                <div class="meeting-info">Pauta: Consolidação do Relatório Final e Validação com o Orientador.</div>
+                <a href="#" class="meeting-btn" onclick="openLiveWindow(); return false;">Link da Sala</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard de Produtividade -->
+    <div class="dashboard">
+        <h2>📊 Dashboard de Produtividade do Grupo</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="value" id="overall-progress-text">0%</div>
+                <div class="label">Progresso Geral</div>
+            </div>
+            <div class="metric-card">
+                <div class="value" id="completed-tasks-text">0/0</div>
+                <div class="label">Atividades Concluídas</div>
+            </div>
+            <div class="metric-card">
+                <div class="value" id="active-members-text">0</div>
+                <div class="label">Membros na Equipe</div>
+            </div>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="overall-progress-bar"></div>
+        </div>
+
+        <h3 style="font-size: 0.95rem; margin-top: 20px; color: #2c3e50;">Progresso Individual:</h3>
+        <div class="members-progress-list" id="members-progress-list"></div>
+
+        <!-- Seção do Iframe da Gravação da Reunião de Alinhamento -->
+        <div class="dashboard-video-section">
+            <h3>🎥 Gravação da Reunião de Alinhamento (08/08/2026)</h3>
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube.com/embed/G3GX3gWTHYg"
+                    title="Reunião Alinhamento Gravação - 08/08/2026"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-wrapper">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/XUCa5dbCzKo?si=1GeJSrWqQXBX92yw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <!-- Organograma -->
+    <div class="org-chart" id="orgChart"></div>
+
+    <!-- Modal de Autenticação / Atividades -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modalContent"></div>
+    </div>
+
+    <!-- Modal Fullscreen de Expansão Estilo Bolha (Laboratório IA / IEC 42001) -->
+    <div class="bubble-overlay" id="labBubbleOverlay">
+        <div class="bubble-modal" id="labBubbleModal">
+            <div class="bubble-header">
+                <h3>🧪 Laboratório IA / IEC 42001 - Modo Fullscreen</h3>
+                <div class="bubble-header-actions">
+                    <button class="bubble-close-btn" onclick="toggleLabBubble()" title="Fechar Tela Cheia">✕</button>
+                </div>
+            </div>
+            <div class="bubble-body">
+                <iframe id="labIframe" src="" title="Laboratório IA/IEC 42001"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel Lateral Deslizante com o Iframe do Google Drive -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDriveDrawer()"></div>
+    <div class="drawer-panel" id="drawerPanel">
+        <div class="drawer-header">
+            <h3>📄 Documento Google Drive (doc.x)</h3>
+            <button class="drawer-close-btn" onclick="toggleDriveDrawer()">✕</button>
+        </div>
+        <div class="drawer-body">
+            <iframe id="driveIframe" src="https://docs.google.com/document/d/1ZSqsZuXxtYN99j62EaKoEzJT7MDMlxPx/edit?usp=sharing&ouid=111857044968028121808&rtpof=true&sd=true" title="Google Drive Document"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const meetUrl = "https://meet.no42.org/join/tcc540a2026s2n11grupo1";
+        const labIaUrl = "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/lab.html";
+
+        /* Abrir/Fechar Modal Estilo Bolha em Tela Cheia para o Laboratório IA */
+        function toggleLabBubble() {
+            const overlay = document.getElementById('labBubbleOverlay');
+            const iframe = document.getElementById('labIframe');
+
+            if (!overlay.classList.contains('active')) {
+                if (!iframe.src || iframe.src === "about:blank" || iframe.src !== labIaUrl) {
+                    iframe.src = labIaUrl;
+                }
+                overlay.classList.add('active');
+            } else {
+                overlay.classList.remove('active');
+            }
+        }
+
+        /* Abrir Janela do Colab */
+        function abrirJanelaMetade() {
+            const url = "https://colab.research.google.com/drive/1BkJCB0uO75wFMCfvZ_Rrvxm8xJEYEvwn?usp=sharing";
+            const largura = window.screen.width * 0.5;
+            const altura = window.screen.height * 0.5;
+            const esquerda = (window.screen.width - largura) / 2;
+            const topo = (window.screen.height - altura) / 2;
+
+            window.open(
+                url,
+                'ColabJanela',
+                `width=${largura},height=${altura},top=${topo},left=${esquerda},resizable=yes,scrollbars=yes`
+            );
+        }
+
+        /* Notificação Automática ao carregar a página */
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                alert("📢 ATENÇÃO GRUPO 1:\n\nPróxima Reunião Agendada para o dia 12/08 às 20:00!\n\nPauta: Alinhamento geral das entregas e documentação.");
+            }, 600);
+
+            renderDashboardAndOrg();
+        });
+
+        /* Fechar Banner de Alerta */
+        function closeBanner() {
+            document.getElementById('alertBanner').style.display = 'none';
+            document.querySelector('.top-nav').style.top = '0';
+            document.body.style.paddingTop = '90px';
+        }
+
+        /* Abrir/Fechar Gaveta do Iframe Deslizante (Direita -> Esquerda) */
+        function toggleDriveDrawer() {
+            const overlay = document.getElementById('drawerOverlay');
+            const panel = document.getElementById('drawerPanel');
+
+            overlay.classList.toggle('active');
+            panel.classList.toggle('active');
+        }
+
+        /* Função para abrir a janela extra de Apresentação ao Vivo (50% da Tela) */
+        function openLiveWindow() {
+            const width = Math.round(window.screen.width * 0.5);
+            const height = Math.round(window.screen.height * 0.5);
+
+            const left = Math.round((window.screen.width - width) / 2);
+            const top = Math.round((window.screen.height - height) / 2);
+
+            const windowFeatures = `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes,status=yes`;
+
+            window.open(meetUrl, "ApresentarAoVivo", windowFeatures);
+        }
+
+        // Dados Estruturados do Grupo
+        const teamData = [
+            {
+                id: 1, nome: "MARCOS", sobrenome: "ALEXANDRE DO NASCIMENTO REIS", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Membro", cargo: "Desenvolvedor / Requisitos",
+                senha: "marcos",
+                tasks: [
+                    { id: "m1", title: "Levantamento de Requisitos do Sistema", done: false },
+                    { id: "m2", title: "Diagrama de Casos de Uso", done: false }
+                ]
+            },
+            {
+                id: 2, nome: "ALAN", sobrenome: "APARECIDO BENTO SILVA PEREIRA DA PAZ", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Gestor", cargo: "Gestor do Projeto",
+                senha: "alan",
+                tasks: [
+                    { id: "a1", title: "Planejamento Estratégico e Cronograma", done: true },
+                    { id: "m1", title: "Levantamento de Requisitos do Sistema", done: true },
+                    { id: "m2", title: "Diagrama de Casos de Uso", done: true },
+                    { id: "a2", title: "Gestão e Aprovação da Documentação TCC", done: false }
+                ]
+            },
+            {
+                id: 3, nome: "Geovane", sobrenome: "de Sousa Silva", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Membro", cargo: "Banco de Dados/Documentação / Pesquisa",
+                senha: "geovane",
+                tasks: [
+                    { id: "g1", title: "Modelagem do Banco de Dados", done: false },
+                    { id: "g1", title: "Reuniao de alinhamento", done: true },
+                    { id: "r1", title: "Pesquisa Bibliográfica do Referencial Teórico", done: true },
+                    { id: "g2", title: "Scripts SQL de Criação de Tabelas", done: false }
+                ]
+            },
+            {
+                id: 4, nome: "Rogerio", sobrenome: "dos Santos", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Membro", cargo: "Documentação / Pesquisa",
+                senha: "rogerio",
+                tasks: [
+                    { id: "r1", title: "Pesquisa Bibliográfica do Referencial Teórico", done: true },
+                    { id: "g1", title: "Reuniao de alinhamento", done: true },
+                    { id: "r2", title: "Revisão Textual da Introdução", done: false }
+                ]
+            },
+            {
+                id: 5, nome: "ALBERTO", sobrenome: "FERREIRA BORGES DE GOUVEA", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Membro", cargo: "Backend Lead",
+                senha: "alberto",
+                tasks: [
+                    { id: "ab1", title: "Desenvolvimento do Módulo Backend", done: false },
+                    { id: "ab2", title: "Testes Unitários de API", done: false }
+                ]
+            },
+            {
+                id: 6, nome: "LUIS", sobrenome: "HENRIQUE PONCIANO MARQUES DE OLIVEIRA", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Lider", cargo: "Líder Técnico",
+                senha: "luis",
+                tasks: [
+                    { id: "lh1", title: "Liderança Técnica e Distribuição de Tarefas", done: false },
+                    { id: "lh2", title: "REQUISITOS DE AUDITORIA DE IA ISO/IEC 42001 ", done: true }
+                ]
+            },
+            {
+                id: 7, nome: "CARLOS", sobrenome: "MAGNO DA SILVA CAVALCANTE", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Membro", cargo: "Frontend UI/UX",
+                senha: "carlos",
+                tasks: [
+                    { id: "c1", title: "Desenvolvimento da Interface (Frontend)", done: false },
+                    { id: "c2", title: "Ajustes de Prototipação UI/UX", done: false }
+                ]
+            },
+            {
+                id: 8, nome: "JOSE", sobrenome: "MAURICIO DA SILVA LIMA", grupos: "EC - TCC540 - A2026S2N11 - Grupo 1",
+                role: "Membro", cargo: "Qualidade / ABNT",
+                senha: "jose",
+                tasks: [
+                    { id: "j1", title: "Elaboração das Considerações Finais", done: false },
+                    { id: "j2", title: "Formatação nas Normas ABNT", done: false }
+                ]
+            }
+        ];
+
+        function calculateMemberProgress(person) {
+            if (!person.tasks || person.tasks.length === 0) return 0;
+            const completed = person.tasks.filter(t => t.done).length;
+            return Math.round((completed / person.tasks.length) * 100);
+        }
+
+        function renderDashboardAndOrg() {
+            let totalTasks = 0;
+            let completedTasks = 0;
+
+            const listContainer = document.getElementById('members-progress-list');
+            listContainer.innerHTML = '';
+
+            teamData.forEach(person => {
+                const pTasks = person.tasks.length;
+                const pDone = person.tasks.filter(t => t.done).length;
+
+                totalTasks += pTasks;
+                completedTasks += pDone;
+
+                const progress = calculateMemberProgress(person);
+
+                const item = document.createElement('div');
+                item.className = 'member-progress-item';
+                item.innerHTML = `
+                    <span><strong>${person.nome}</strong> (${person.cargo})</span>
+                    <span style="font-weight:bold; color: ${progress === 100 ? '#27ae60' : '#2c3e50'};">${progress}%</span>
+                `;
+                listContainer.appendChild(item);
+            });
+
+            // Atualiza métricas do Dashboard
+            const overallProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            document.getElementById('overall-progress-text').innerText = `${overallProgress}%`;
+            document.getElementById('completed-tasks-text').innerText = `${completedTasks}/${totalTasks}`;
+            document.getElementById('active-members-text').innerText = teamData.length;
+            document.getElementById('overall-progress-bar').style.width = `${overallProgress}%`;
+
+            renderOrgChart();
+        }
+
+        function renderOrgChart() {
+            const orgChart = document.getElementById('orgChart');
+            orgChart.innerHTML = '';
+
+            const gestor = teamData.find(m => m.role === 'Gestor');
+            const lider = teamData.find(m => m.role === 'Lider');
+            const membros = teamData.filter(m => m.role === 'Membro');
+
+            // Nível 1 - Gestor
+            const nodeGestor = createNodeHTML(gestor);
+            orgChart.appendChild(nodeGestor);
+
+            // Linha Vertical
+            const line1 = document.createElement('div');
+            line1.className = 'line-v';
+            orgChart.appendChild(line1);
+
+            // Nível 2 - Líder
+            const nodeLider = createNodeHTML(lider);
+            orgChart.appendChild(nodeLider);
+
+            // Linha Vertical
+            const line2 = document.createElement('div');
+            line2.className = 'line-v';
+            orgChart.appendChild(line2);
+
+            // Nível 3 - Membros
+            const gridMembros = document.createElement('div');
+            gridMembros.className = 'grid-membros';
+
+            membros.forEach(membro => {
+                const nodeMembro = createNodeHTML(membro);
+                gridMembros.appendChild(nodeMembro);
+            });
+
+            orgChart.appendChild(gridMembros);
+        }
+
+        function createNodeHTML(person) {
+            const node = document.createElement('div');
+            node.className = 'node';
+
+            const roleClass = person.role.toLowerCase();
+            const progress = calculateMemberProgress(person);
+
+            node.innerHTML = `
+                <div class="card ${roleClass}" onclick="openAuthModal(${person.id})">
+                    <div class="role">${person.role} - ${person.cargo}</div>
+                    <div class="name">${person.nome} ${person.sobrenome}</div>
+                    <div class="group">${person.grupos}</div>
+                    <div class="badge">Progresso: ${progress}%</div>
+                </div>
+            `;
+            return node;
+        }
+
+        let selectedMember = null;
+
+        function openAuthModal(id) {
+            selectedMember = teamData.find(m => m.id === id);
+            const modalContent = document.getElementById('modalContent');
+
+            modalContent.innerHTML = `
+                <h3>Acesso Restrito - ${selectedMember.nome}</h3>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">Informe sua senha para gerenciar suas atividades:</p>
+                <input type="password" id="passInput" placeholder="Sua senha..." autofocus>
+                <div class="modal-buttons">
+                    <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                    <button class="btn btn-primary" onclick="verifyPassword()">Entrar</button>
+                </div>
+            `;
+
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function verifyPassword() {
+            const input = document.getElementById('passInput').value;
+            if (input === selectedMember.senha) {
+                renderTasksModal();
+            } else {
+                alert("Senha incorreta!");
+            }
+        }
+
+        function renderTasksModal() {
+            const modalContent = document.getElementById('modalContent');
+            const progress = calculateMemberProgress(selectedMember);
+
+            let tasksHTML = selectedMember.tasks.map(t => `
+                <li class="task-item ${t.done ? 'done' : ''}">
+                    <input type="checkbox" id="task_${t.id}" ${t.done ? 'checked' : ''} onchange="toggleTask('${t.id}')">
+                    <label for="task_${t.id}"><span>${t.title}</span></label>
+                </li>
+            `).join('');
+
+            modalContent.innerHTML = `
+                <h3>Gerenciar Atividades - ${selectedMember.nome}</h3>
+                <p style="font-size:0.85rem; color:#7f8c8d;">Progresso Atual: <strong>${progress}%</strong></p>
+                <ul class="task-list">
+                    ${tasksHTML}
+                </ul>
+                <div class="modal-buttons">
+                    <button class="btn btn-primary" onclick="closeModal()">Salvar & Fechar</button>
+                </div>
+            `;
+        }
+
+        function toggleTask(taskId) {
+            const task = selectedMember.tasks.find(t => t.id === taskId);
+            if (task) {
+                task.done = !task.done;
+                renderTasksModal();
+                renderDashboardAndOrg();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            selectedMember = null;
+        }
+    </script>
+</body>
+</html>

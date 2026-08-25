@@ -1,0 +1,38 @@
+{
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "orientation": "any",
+  "id": "./",
+  "name": "AIMS ERP — ERP Inteligente com Motor de IA Desenvolvimento Software APP ELETRONICS CNPJ 30611878/0001-24 WHATSAPP 11912459458",
+  "short_name": "AIMS ERP",
+  "description": "ERP com motor de IA (ISO 42001) integrando análise financeira, logística FIFO/FEFO/LIFO, estoque EAN/QR, malha fiscal tributária e gerador de DANFE NF-e.",
+  "start_url": "./",
+  "scope": "./",
+  "background_color": "#0e7490",
+  "theme_color": "#0e7490",
+  "icons": [
+    {
+      "src": "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png",
+      "sizes": "192x192",
+      "type": "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png",
+      "sizes": "512x512",
+      "type": "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png",
+      "sizes": "512x512",
+      "type": "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png",
+      "purpose": "maskable"
+    }
+  ],
+  "generator": "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png"
+}

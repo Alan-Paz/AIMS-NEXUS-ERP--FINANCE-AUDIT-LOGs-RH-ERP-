@@ -1,0 +1,35 @@
+:root { color-scheme: light; }
+* { -webkit-tap-highlight-color: transparent; }
+body { text-rendering: optimizeLegibility; }
+
+.fade-in { animation: fadeIn .3s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.card { background:#fff; border:1px solid #e2e8f0; border-radius:14px; }
+
+/* Segmented status control */
+.seg { display:inline-flex; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:10px; padding:3px; gap:2px; }
+.seg button { font-size:12px; font-weight:600; padding:5px 10px; border-radius:7px; color:#64748b; white-space:nowrap; transition:all .12s ease; }
+.seg button:hover { color:#0f172a; }
+.seg button.active { color:#fff; }
+
+/* progress ring */
+.ring { transform: rotate(-90deg); }
+.ring-bg { stroke:#e2e8f0; }
+.ring-fg { stroke:#0f766e; transition: stroke-dashoffset .6s ease; stroke-linecap:round; }
+
+/* nav link */
+.navlink { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:9px; font-size:14px; font-weight:500; color:#475569; cursor:pointer; transition:all .12s ease; }
+.navlink:hover { background:#f1f5f9; color:#0f172a; }
+.navlink.active { background:#f0fdfa; color:#0f766e; font-weight:600; }
+
+textarea { resize: vertical; }
+
+::-webkit-scrollbar { width:10px; height:10px; }
+::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:8px; border:2px solid #f1f5f9; }
+::-webkit-scrollbar-track { background:#f1f5f9; }
+
+@media print {
+  .no-print { display:none !important; }
+  body { background:#fff; }
+}

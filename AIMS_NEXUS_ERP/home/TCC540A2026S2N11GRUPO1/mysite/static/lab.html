@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA / UNIVESP - Ambiente de Testes ISO/IEC 42001 & IA</title>
+  <style>
+    :root {
+      --bg-space: #0b0e14;
+      --card-bg: #131a24;
+      --nasa-red: #fc3d21;
+      --nasa-blue: #0b3d91;
+      --univesp-gold: #ffb800;
+      --ubuntu-orange: #e95420;
+      --text-main: #e2e8f0;
+      --text-dim: #94a3b8;
+      --border-color: #1e293b;
+      --accent-glow: rgba(11, 61, 145, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-space);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Cabeçalho */
+    header {
+      background: linear-gradient(90deg, #050811 0%, var(--nasa-blue) 100%);
+      border-bottom: 2px solid var(--nasa-red);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-tag {
+      background-color: var(--nasa-red);
+      color: #fff;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-sub {
+      color: var(--univesp-gold);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      font-size: 0.85rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+    }
+
+    /* Main Layout */
+    main {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      flex: 1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--univesp-gold);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .select-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .select-box label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+
+    select {
+      background-color: #0d1117;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 0.6rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    select:focus {
+      border-color: var(--nasa-blue);
+    }
+
+    .info-card {
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 3px solid var(--nasa-blue);
+      padding: 0.8rem;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .info-card strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, var(--nasa-blue) 0%, #1e40af 100%);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    /* Area do Emulador */
+    .emulator-wrapper {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .emulator-header {
+      background-color: #0d1117;
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .emulator-title {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      font-family: monospace;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 600px;
+      border: none;
+      background-color: #000;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #050811;
+      border-top: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      iframe {
+        min-height: 450px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho NASA / UNIVESP -->
+  <header>
+    <div class="brand">
+      <span class="brand-tag">TCC 2026 UNIVESP</span>
+      <div>
+        <div class="brand-title">LABORATÓRIO DE TESTES IA</div>
+        <div class="brand-sub">UNIVESP • ISO/IEC 42001 AML ASSESSMENT</div>
+      </div>
+    </div>
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      <span id="active-system-tag">Ubuntu Web OS Active</span>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main>
+    <!-- Painel Lateral -->
+    <aside class="sidebar">
+      <div class="select-box">
+        <label for="emulator-select">SELECIONAR AMBIENTE OS:</label>
+        <select id="emulator-select" onchange="changeEmulator(this.value)">
+          <option value="ubuntu">Ubuntu OS </option>
+          <option value="jslinux">JSLinux Terminal</option>
+        </select>
+      </div>
+
+      <div>
+        <h3 class="section-title">Start do Sistema Ubuntu</h3>
+        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.5rem; line-height: 1.4;">
+          <strong>Análise de Testes de IA (ISO/IEC 42001:----------------------------------------------------(DESENVOLVIMENTO SOFTWARE ALAN PAZ RA 23223266 UNIVESP -USP ):</strong><br>
+          O boot do Ubuntu Web inicializa a interface gráfica simulada para verificação de governança e ciclo de vida de IA.
+        </p>
+      </div>
+
+      <div class="info-card" id="info-card-dynamic" style="border-left-color: var(--ubuntu-orange);">
+        <strong>Sequência de Inicialização (Ubuntu):</strong>
+        <p style="margin-top: 0.3rem;">
+          1. Boot em Kernel JS/Wasm.<br>
+          2. Carregamento da interface GNOME.<br>
+          3. Acesso ao Terminal e VSCode para análise de compliance ISO 42001.
+        </p>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-action" onclick="reloadEmulator()">
+          <span>🔄 Reiniciar SO</span>
+        </button>
+        <button class="btn-action" style="background: linear-gradient(135deg, #334155 0%, #1e293b 100%);" onclick="toggleFullscreen()">
+          <span>🖥️ Expandir Tela</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Área do Emulador -->
+    <section class="emulator-wrapper" id="emulator-container">
+      <div class="emulator-header">
+        <span class="emulator-title" id="emulator-label">ubuntu@nasa-univesp-node:~# (ISO 42001 Assessment)</span>
+        <span style="font-size: 0.75rem; color: var(--univesp-gold);" id="emulator-url-display">TCC UNIVESP 2026</span>
+      </div>
+      <iframe id="main-iframe" src="https://vivek9patel.github.io/" title="Sistema Operacional Web"></iframe>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <span>Plataforma Integrada de Validação ISO/IEC 42001 — UNIVESP </span>
+    <span id="clock">00:00:00 UTC</span>
+  </footer>
+
+  <!-- Scripts JavaScript -->
+  <script>
+    const emulators = {
+      ubuntu: {
+        url: " https://dustinbrett.com/",
+        title: "ubuntu@nasa-univesp-node:~# (ISO 42001 Assessment)",
+        displayUrl: "TCC 2026 UNIVESP",
+        status: "Ubuntu Web OS Active",
+        color: "#e95420",
+        info: "<strong>Sequência de Inicialização (Ubuntu):</strong><br>1. Boot em Kernel JS/Wasm.<br>2. Carregamento do Desktop GNOME.<br>3. Execução de testes de mitigação de viés e transparência de IA."
+      },
+      jslinux: {
+        url: "https://bellard.org/jslinux/",
+        title: "root@jslinux-core:~# (ISO 42001 CLI Validation)",
+        displayUrl: "TCC 2026 UNIVESP",
+        status: "JSLinux Active",
+        color: "#0b3d91",
+        info: "<strong>Sequência de Inicialização (JSLinux):</strong><br>1. Boot do Kernel Linux em C compilado para JS.<br>2. Prompt de Shell interativo.<br>3. Auditoria direta via CLI de logs e scripts da IA."
+      }
+    };
+
+///https://vivek9patel.github.io/
+    function changeEmulator(selectedKey) {
+      const iframe = document.getElementById('main-iframe');
+      const label = document.getElementById('emulator-label');
+      const urlDisplay = document.getElementById('emulator-url-display');
+      const statusTag = document.getElementById('active-system-tag');
+      const infoCard = document.getElementById('info-card-dynamic');
+
+      const data = emulators[selectedKey];
+
+      iframe.src = data.url;
+      label.textContent = data.title;
+      urlDisplay.textContent = data.displayUrl;
+      statusTag.textContent = data.status;
+      infoCard.innerHTML = data.info;
+      infoCard.style.borderLeftColor = data.color;
+    }
+
+    function reloadEmulator() {
+      const iframe = document.getElementById('main-iframe');
+      iframe.src = iframe.src;
+    }
+
+    function toggleFullscreen() {
+      const container = document.getElementById('emulator-container');
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toUTCString().split(' ')[4] + ' UTC';
+      document.getElementById('clock').textContent = timeString;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

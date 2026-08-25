@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNIVESP TCC - AIMS AUDIT</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- FontAwesome (Ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- OrgChart CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/css/jquery.orgchart.min.css">
+
+  <!-- CSS incorporado -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Quicksand", sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #111;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .ring {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 60px; /* Espaço para o rodapé */
+    }
+    .ring i {
+      position: absolute;
+      inset: 0;
+      border: 2px solid #fff;
+      transition: 0.5s;
+    }
+    .ring i:nth-child(1) {
+      border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+      animation: animate 6s linear infinite;
+    }
+    .ring i:nth-child(2) {
+      border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+      animation: animate 4s linear infinite;
+    }
+    .ring i:nth-child(3) {
+      border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+      animation: animate2 10s linear infinite;
+    }
+    .ring:hover i {
+      border: 6px solid var(--clr);
+      filter: drop-shadow(0 0 20px var(--clr));
+    }
+    @keyframes animate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes animate2 {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .login {
+      position: absolute;
+      width: 300px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .login h2 {
+      font-size: 2em;
+      color: #fff;
+    }
+    .login .inputBx {
+      position: relative;
+      width: 100%;
+    }
+    .login .inputBx input {
+      position: relative;
+      width: 100%;
+      padding: 12px 20px;
+      background: transparent;
+      border: 2px solid #fff;
+      border-radius: 40px;
+      font-size: 1.2em;
+      color: #fff;
+      box-shadow: none;
+      outline: none;
+    }
+    .login .inputBx input[type="submit"] {
+      width: 100%;
+      background: #0078ff;
+      background: linear-gradient(45deg, #ff357a, #fff172);
+      border: none;
+      cursor: pointer;
+    }
+    .login .inputBx input::placeholder {
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .login .links {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .login .links a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* Container dos Links Sociais (GitHub e YouTube lado a lado) */
+    .social-links {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 999;
+    }
+    .social-links a {
+      font-size: 2.5em;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .social-links a:hover {
+      transform: scale(1.15);
+    }
+    .social-links a.github-link:hover {
+      color: #e6e6e6;
+    }
+    .social-links a.youtube-link:hover {
+      color: #ff0000;
+    }
+
+    .logo-box {
+      position: absolute;
+      top: 50px;
+      text-align: center;
+      width: 100%;
+    }
+    .logo-box img {
+      max-width: 150px;
+      height: auto;
+    }
+
+    /* Estilos do Logo AIMS AUDIT no Topo Direito */
+    .aims-logo-top-right {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .aims-logo-top-right:hover {
+      transform: translateY(-2px);
+      border-color: #ff357a;
+      box-shadow: 0 6px 20px rgba(255, 53, 122, 0.4);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .aims-logo-top-right img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    /* Modal / Janela Lateral de 50% de Largura */
+    .aims-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .aims-modal-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+    .aims-modal-container {
+      position: fixed;
+      top: 0;
+      right: -50%;
+      width: 50%;
+      height: 100%;
+      background: #111;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+      z-index: 10000;
+      transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .aims-modal-overlay.active .aims-modal-container {
+      right: 0;
+    }
+    .aims-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #181818;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    .aims-modal-header h3 {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .aims-modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .aims-modal-btn {
+      background: transparent;
+      border: none;
+      color: #aaa;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .aims-modal-btn:hover {
+      color: #fff;
+    }
+    .aims-modal-body {
+      flex: 1;
+      width: 100%;
+      height: calc(100% - 50px);
+      background: #fff;
+    }
+    .aims-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ESTILOS DO CARROSSEL DE MERCHANDISING ABAIXO DA TELA */
+    .merch-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(18, 18, 18, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+    }
+    .merch-carousel {
+      width: 80%;
+      max-width: 900px;
+      height: 100%;
+      position: relative;
+    }
+    .merch-item {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-in-out;
+      color: #fff;
+      text-align: center;
+    }
+    .merch-item.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .merch-item i {
+      font-size: 1.4em;
+      color: #00ff0a;
+    }
+    .merch-item .highlight {
+      color: #ff357a;
+      font-weight: 600;
+    }
+    .merch-item span {
+      font-size: 0.95em;
+      letter-spacing: 0.5px;
+    }
+    .merch-btn {
+      background: linear-gradient(45deg, #ff357a, #0078ff);
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-left: 10px;
+      transition: transform 0.2s ease;
+    }
+    .merch-btn:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .aims-modal-container {
+        width: 100%;
+        right: -100%;
+      }
+      .merch-carousel {
+        width: 95%;
+      }
+      .merch-item span {
+        font-size: 0.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo AIMS AUDIT no Topo Direito -->
+  <div class="aims-logo-top-right" onclick="openAimsWindow()" title="Abrir AIMS AUDIT (50% da Tela)">
+    <img src="https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png" alt="AIMS AUDIT Logo">
+  </div>
+
+  <!-- Modal Janela 50% -->
+  <div class="aims-modal-overlay" id="aimsModal" onclick="closeAimsModal(event)">
+    <div class="aims-modal-container" onclick="event.stopPropagation()">
+      <div class="aims-modal-header">
+        <h3>AIMS NEXUS ERP</h3>
+        <div class="aims-modal-actions">
+          <button class="aims-modal-btn" onclick="openExternal()" title="Abrir Popup Externo (50%)"><i class="fa fa-external-link"></i></button>
+          <button class="aims-modal-btn" onclick="closeAimsModal()" title="Fechar"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <div class="aims-modal-body">
+        <iframe id="aimsIframe" src="" title="AIMS AUDIT"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ring div starts here -->
+  <div class="ring">
+    <i style="--clr:#00ff0a;"></i>
+    <i style="--clr:#ff0057;"></i>
+    <i style="--clr:#fffd44;"></i>
+    <div class="login">
+      <div class="logo-box">
+        <img src="https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/icons/AIMS-AUDIT.png" alt="Logo Catarina Fashion Outlet">
+      </div>
+      <h2>Login</h2>
+      <div class="inputBx">
+        <input type="text" id="username" placeholder="Username">
+      </div>
+      <div class="inputBx">
+        <input type="password" id="password" placeholder="Password">
+      </div>
+      <div class="inputBx">
+        <input type="submit" value="Sign in" onclick="login()">
+      </div>
+      <div class="links">
+        <a href="#">reset senha </a>
+        <a href="#">Acesso-Conta </a>
+      </div>
+    </div>
+  </div>
+  <!-- ring div ends here -->
+
+  <!-- Rodapé de Merchandising (Carrossel AIMS AUDIT) -->
+  <div class="merch-footer">
+    <div class="merch-carousel">
+      <div class="merch-item active">
+        <i class="fa fa-shield"></i>
+        <span><b>AIMS NEXUS ERP:</b> Soluções Inteligentes em <span class="highlight">Auditoria de Inteligência Artificial</span> e conformidade contínua.</span>
+        <button class="merch-btn" onclick="openAimsWindow()">Saiba Mais</button>
+      </div>
+      <div class="merch-item">
+        <i class="fa fa-certificate"></i>
+        <span>Pronto para a <span class="highlight">ISO/IEC 42001</span>? Garanta a governança e gestão de IA na sua empresa.</span>
+        <button class="merch-btn" onclick="openAimsWindow()">Conferir</button>
+      </div>
+      <div class="merch-item">
+        <i class="fa fa-cogs"></i>
+        <span>Aumente a transparência e mitigação de riscos em algoritmos com o ecossistema <span class="highlight">AIMS AUDIT</span>.</span>
+        <button class="merch-btn" onclick="openAimsWindow()">Acessar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Links Sociais: GitHub e YouTube -->
+  <div class="social-links">
+    <a class="github-link" href="https://github.com/TCC540-a2026s2n11grupo1/TCC540-a2026s2n11grupo1-UNIVESP-2026.git" target="_blank" title="GitHub">
+      <i class="fa fa-github-square"></i>
+    </a>
+    <a class="youtube-link" href="https://www.youtube.com/watch?v=ANpdAvLeVqM" target="_blank" title="YouTube">
+      <i class="fa fa-youtube-play"></i>
+    </a>
+  </div>
+
+  <script>
+    const targetUrl = "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/index.html";
+
+    function openAimsWindow() {
+      const modal = document.getElementById("aimsModal");
+      const iframe = document.getElementById("aimsIframe");
+
+      if (!iframe.src || iframe.src !== targetUrl) {
+        iframe.src = targetUrl;
+      }
+
+      modal.classList.add("active");
+    }
+
+    function closeAimsModal(event) {
+      if (!event || event.target.classList.contains('aims-modal-overlay') || event.currentTarget.classList.contains('aims-modal-btn')) {
+        const modal = document.getElementById("aimsModal");
+        modal.classList.remove("active");
+      }
+    }
+
+    function openExternal() {
+      const width = Math.floor(window.screen.width * 0.5);
+      const height = window.screen.height;
+      const left = Math.floor(window.screen.width * 0.5);
+      window.open(targetUrl, 'AimsAuditWindow', `width=${width},height=${height},top=0,left=${left},resizable=yes,scrollbars=yes`);
+    }
+
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      const users = {
+        "univesp": { password: "23223266", redirect: "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/dashboard_produtividade.html"},
+        "geovane": { password: "23227958", redirect: "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/dashboard_produtividade.html"},
+        "mauricio": { password: "2208518", redirect: "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/dashboard_produtividade.html" },
+        "marcos": { password: "2006018", redirect: "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/dashboard_produtividade.html"},
+        "henrique": { password: "2215062", redirect: "https://tcc540a2026s2n11grupo1.pythonanywhere.com/static/dashboard_produtividade.html"},
+        "scada": { password: "scada", redirect: "" },
+        "cftv": { password: "1234", redirect: "" }
+      };
+
+      if (users[user] && users[user].password === pass) {
+        window.location.href = users[user].redirect;
+      } else {
+        alert("Usuário ou senha incorretos.");
+      }
+    }
+
+    // Lógica do Carrossel de Merchandising Rodapé
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.merch-item');
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    // Alterna o slide a cada 4 segundos
+    setInterval(nextSlide, 4000);
+  </script>
+
+  <!-- Libs JS: jQuery, html2canvas, OrgChart -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js"></script>
+</body>
+</html>
